@@ -1,8 +1,8 @@
 import java.util.HashMap;
 
 public class VendingMachine {
-    HashMap<Product, Integer> inventory;
-    int collectedMoney;
+    private HashMap<Product, Integer> inventory;
+    private int collectedMoney;
     private static VendingMachine vendingMachine;
 
     private VendingMachine() {
@@ -29,7 +29,7 @@ public class VendingMachine {
 
     String buyProduct(Product product, int quantity, int moneyEntered) {
         if(!inventory.containsKey(product))
-            return "Product not available at the moment";
+            return "Product out of stock";
         if(quantity>inventory.get(product))
             return "Not enough product present";
         if(moneyEntered<quantity*product.price)
@@ -37,6 +37,14 @@ public class VendingMachine {
         collectedMoney += product.price*quantity;
         int changeMoney = moneyEntered - product.price*quantity;
         return String.valueOf(changeMoney);
+    }
+
+    int getQuantityOf(Product product) {
+        return inventory.get(product);
+    }
+
+    int getCollectedMoney() {
+        return collectedMoney;
     }
 
 
